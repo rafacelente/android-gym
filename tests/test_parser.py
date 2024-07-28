@@ -1,8 +1,8 @@
 import pytest
-from resources import MOCK_AGENT_DATA, MOCK_ENV_DATA
+from .resources import MOCK_AGENT_DATA, MOCK_ENV_DATA
 
 def test_none_priveleged_obs():
-    from chape.parser import Agent
+    from android_gym.parser import Agent
     mock_data = MOCK_AGENT_DATA.copy()
     agent = Agent(**mock_data)
     assert agent.num_privileged_observations == None
@@ -11,12 +11,12 @@ def test_none_priveleged_obs():
     assert agent.num_privileged_observations == None
 
 def test_agent_parser():
-    from chape.parser import Agent
+    from android_gym.parser import Agent
     agent = Agent(**MOCK_AGENT_DATA)
     assert True
 
 def test_env_parser():
-    from chape.parser import EnvConfig
+    from android_gym.parser import EnvConfig
     env = EnvConfig(**MOCK_ENV_DATA)
     assert env.env_name == "test_env"
     assert env.num_envs == 1

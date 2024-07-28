@@ -65,7 +65,7 @@ class Commands(BaseModel):
     
 class Noise(BaseModel):
     add_noise: bool = False
-    noise_map: Dict[str, float] | None = None
+    noise_map: Optional[Dict[str, float]] = None
 
     @model_validator(mode="after")
     def noise_map_validator(self) -> Self:
@@ -114,7 +114,7 @@ class DOFProperties(BaseModel):
 
 class Asset(BaseModel):
     file: str
-    foot_name: str | None = None
+    foot_name: Optional[str] = None
     collapse_fixed_joints: bool = True
     fix_base_link: bool = False
     default_dof_drive_mode: Union[int, Literal["none", "pos", "vel", "effort"]] = 1
@@ -144,7 +144,7 @@ class Asset(BaseModel):
 class Agent(BaseModel):
     name: str
     num_observations: int
-    num_privileged_observations: int | None = None
+    num_privileged_observations: Optional[int] = None
     num_actions: int
     init_state: InitState
     commands: Commands
@@ -176,6 +176,7 @@ class Agent(BaseModel):
                 else:
                     self.normalization.command_scales[command] = self.normalization.observation_scales[command]
         assert len(self.normalization.command_scales) == len(self.commands.command_ranges) == self.commands.num_commands
+        return self
             
     
 

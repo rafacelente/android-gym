@@ -7,8 +7,45 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pydantic = "^2.8.2"
+typing-extensions = "^4.12.2"
+numpy = "1.23.5"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.mypy.overrides]]
+module = [
+    "toml",
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 80
+
+[tool.pylint.MASTER]
+ignore = "tests"
+jobs = 0
+extension-pkg-whitelist = "pydantic"
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = [
+    # "missing-module-docstring",
+    # "invalid-name",
+    # "consider-using-from-import",
+    # "missing-function-docstring",
+    # "super-with-arguments",
+    # "arguments-renamed",
+    # "consider-using-from-import"
+]
+
+[tool.pylint.BASIC]
+good-names = ["M", "N", "y", ]
+
+[tool.pylint.TYPECHECK]
+ignored-modules = ["pydantic"]

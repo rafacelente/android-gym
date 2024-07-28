@@ -22,7 +22,7 @@ class Terrain(BaseModel):
     measured_points_x: List[float] = [-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8] # 1mx1.6m rectangle (without center line)
     measured_points_y: List[float] = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
     selected: bool = False # select a unique terrain type and pass all arguments
-    terrain_kwargs: Dict[str, Any] | None = None # Dict of arguments for selected terrain
+    terrain_kwargs: Optional[Dict[str, Any]] = None # Dict of arguments for selected terrain
     max_init_terrain_level: int = 5 # starting curriculum state
     terrain_length: float = 8.0
     terrain_width: float = 8.0
