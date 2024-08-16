@@ -10,6 +10,7 @@ python = "^3.8"
 pydantic = "^2.8.2"
 typing-extensions = "^4.12.2"
 numpy = "1.23.5"
+rsl-rl = {git = "git@github.com:leggedrobotics/rsl_rl.git"}
 
 
 [tool.poetry.group.dev.dependencies]

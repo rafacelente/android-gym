@@ -10,3 +10,5 @@ __pycache__
 *.egg-info
 .mypy_cache
 experiments/
+artifacts/
+logs/
