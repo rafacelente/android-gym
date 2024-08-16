@@ -47,7 +47,7 @@ MOCK_AGENT_DATA = {
     },
     "asset": {
         "file": "/path/to/agent.urdf",
-    }
+    }   
 }
 
 MOCK_ENV_DATA = {
