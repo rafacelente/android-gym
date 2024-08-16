@@ -48,6 +48,7 @@ class Commands(BaseModel):
     max_commands: float = 1.0
     num_commands: int
     command_ranges: Dict[str, List[float]]
+    resampling_time: float = 10.
 
     @field_validator('command_ranges')
     @classmethod
@@ -82,6 +83,8 @@ class Normalization(BaseModel):
 class Rewards(BaseModel):
     only_positive_rewards: bool = False
     reward_map: Dict[str, float]
+    penalize_contacts_on: List[str] = []
+    terminate_after_contacts_on: List[str] = []
 
     @field_validator('reward_map')
     @classmethod
@@ -90,12 +93,19 @@ class Rewards(BaseModel):
             if ' ' in k:
                 raise ValueError(f'Reward name {k} must not have spaces')
         return v
-    
+
+
+class SafetyScales(BaseModel):
+    pos_scale: float = 1.0
+    vel_scale: float = 1.0
+    torque_scale: float = 1.0
+
 class Controls(BaseModel):
     stiffness: Union[Dict[str, float], float]
     damping: Union[Dict[str, float], float]
     action_scale: float = 0.5
     decimation: int = 1
+    safety_scales: SafetyScales = SafetyScales()
 
 """
 TODO: 
@@ -115,6 +125,7 @@ class DOFProperties(BaseModel):
 class Asset(BaseModel):
     file: str
     foot_name: Optional[str] = None
+    knee_name: Optional[str] = None
     collapse_fixed_joints: bool = True
     fix_base_link: bool = False
     default_dof_drive_mode: Union[int, Literal["none", "pos", "vel", "effort"]] = 1
@@ -147,13 +158,15 @@ class Agent(BaseModel):
     num_privileged_observations: Optional[int] = None
     num_actions: int
     init_state: InitState
+    disable_gravity: bool = False
     commands: Commands
-    noise: Noise
+    noise: Noise = Noise()
     normalization: Normalization
     rewards: Rewards
     controls: Controls
     asset: Asset
-
+    # TODO(MAJOR): DOMAIN RANDOMIZATION - SEE legged_robots.py _process_rigid_shape_props and _process_rigid_body_props
+    
     # TODO: there may be cases where the number of actions
     # is not equal to the number of joints (inactive joints),
     # but skipping for now
@@ -161,7 +174,7 @@ class Agent(BaseModel):
     def num_actions_equals_num_joints(self) -> Self:
         if self.num_actions != len(self.init_state.default_joint_angles.keys()):
             raise ValueError(
-                f'num_observations must match number of joints but found:',
+                f'num_actions must match number of joints but found:',
                 f'num_actions: {self.num_actions}',
                 f'num_joints: {len(self.init_state.default_joint_angles.keys())}')
         return self

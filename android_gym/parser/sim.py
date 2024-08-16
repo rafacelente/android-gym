@@ -1,4 +1,5 @@
-from typing import Literal, List, Union, Optional
+from typing import Literal, List, Union, Dict
+from typing_extensions import Self
 from pydantic import (
     BaseModel,
     field_validator,
@@ -6,7 +7,7 @@ from pydantic import (
 
 class PhysxParams(BaseModel):
     num_threads: int = 0
-    solver_type: Union[Literal[0,1], Literal["pgs", "tgs"]] = "pgs"
+    solver_type: Literal[0,1] = 0 # 0: pgs, 1: tgs
     num_position_iterations: int = 4
     num_velocity_iterations: int = 1
     contact_offset: float = 0.01
@@ -19,12 +20,12 @@ class PhysxParams(BaseModel):
     
     @field_validator('solver_type')
     @classmethod
-    def parse_solver_type(cls, v) -> Union[Literal[0,1], Literal["pgs", "tgs"]]:
-        solver_map = {
-            "pgs": 0,
-            "tgs": 1
-        }
+    def parse_solver_type(cls, v) -> Literal[0,1]:
         if isinstance(v, str):
+            solver_map = {
+                "pgs": 0,
+                "tgs": 1
+            }
             return solver_map[v]
         return v
 
@@ -33,17 +34,30 @@ class SimConfig(BaseModel):
     dt: float = 0.01
     substeps: int = 1
     gravity: List[float] = [0.0, 0.0, -9.81]
-    up_axis: Union[Literal[0, 1, 2], Literal["x", "y", "z"]] = 1
+    up_axis: Literal[0, 1, 2] = 1
     physx: PhysxParams = PhysxParams()
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> Self:
+        return cls(**data)
+    
+    @classmethod
+    def from_yaml(cls, path: str) -> Self:
+        import yaml
+        with open(path, 'r') as f:
+            data = yaml.safe_load(f)
+        return cls.from_dict(data)
 
     @field_validator('up_axis')
     @classmethod
-    def parse_up_axis(cls, v) -> Union[Literal[0, 1, 2], Literal["x", "y", "z"]]:
+    def parse_up_axis(cls, v) -> Literal[0, 1, 2]:
         axis_map = {
             "x": 0,
             "y": 1,
             "z": 2
         }
         if isinstance(v, str):
+            if v not in axis_map:
+                raise ValueError(f"Invalid up_axis: {v}") 
             return axis_map[v]
         return v

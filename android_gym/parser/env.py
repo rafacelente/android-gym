@@ -57,8 +57,20 @@ class EnvConfig(BaseModel):
     episode_length_seconds: int
     viewer: Viewer = Viewer()
     terrain: Terrain = Terrain()
-    agents: Union[List[Agent], Agent]
+    agents: Agent #Union[List[Agent], Agent]
+    seed: int = 1
     # TODO: props
+
+    @classmethod
+    def from_dict(cls, data: Dict) -> Self:
+        return cls(**data)
+    
+    @classmethod
+    def from_yaml(cls, path: str) -> Self:
+        import yaml
+        with open(path, 'r') as f:
+            data = yaml.safe_load(f)
+        return cls.from_dict(data)
 
     @field_validator("num_envs")
     @classmethod
