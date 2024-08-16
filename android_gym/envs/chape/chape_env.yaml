@@ -1,0 +1,69 @@
+env_name: chape_env
+episode_length_seconds: 20
+agents:
+  name: chape
+  num_observations: 72
+  num_actions: 20
+  init_state:
+    pos: [0.0, 0.0, 0.51]
+    rot: [0.0, 0.0, 0.0, 1.0]
+    linear_velocity: [0.0, 0.0, 0.0]
+    angular_velocity: [0.0, 0.0, 0.0]
+    default_joint_angles:
+      #base_link_to_body: 0.0
+      neckYaw: 0.0
+      neckPitch: 0.0
+      leftShoulderPitch: 0.0
+      leftShoulderYaw: -1 # 0.0
+      leftElbowYaw: 0.0
+      rightShoulderPitch: 0.0
+      rightShoulderYaw: 1 #0.0
+      rightElbowYaw: 0.0
+      leftHipYaw: 0.0
+      leftHipRoll: 0.0
+      leftHipPitch: 0.0
+      leftKneePitch: 0.0
+      leftAnklePitch: 0.0
+      leftAnkleRoll: 0.0 
+      rightHipYaw: 0.0
+      rightHipRoll: 0.0
+      rightHipPitch: 0.0
+      rightKneePitch: 0.0
+      rightAnklePitch: 0.0
+      rightAnkleRoll: 0.0
+  commands:
+    num_commands: 3
+    command_ranges:
+      linear_x: [1.0, 2.0]
+      linear_y: [0.0, 0.0]
+      yaw: [0.0, 0.0]
+  normalization:
+    observation_scales:
+      test: 1.0
+  rewards:
+    reward_map:
+      #feet_air_time: 0.01
+      joint_pos: 0.01
+      foot_slip: 0.01
+      orientation: 0.01
+      tracking_lin_vel: 6.0
+      tracking_ang_vel: 0.5
+
+    terminate_after_contacts_on:
+      - "base_link"
+      - "neck"
+      - "head"
+      - "leftArmLower"
+      - "rightArmLower"
+  controls:
+    decimation: 20
+    stiffness: 12.73
+    damping: 0.0
+    safety_scales:
+      pos_scale: 1
+      vel_scale: 1
+      torque_scale: 1
+  asset:
+    file: /home/rafael/Documents/Personal/android-gym/android_gym/envs/chape/assets/darwin.urdf
+    foot_name: "Foot"
+    knee_name: "Thigh"

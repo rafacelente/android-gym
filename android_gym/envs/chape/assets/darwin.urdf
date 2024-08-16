@@ -1,0 +1,892 @@
+<?xml version="1.0" ?>
+<robot name="darwin">
+<self_collide value="false" />
+
+  <link name="base_link"/>
+  
+  <joint name="base_link_to_body" type="fixed">
+    <parent link="base_link"/>
+    <child link="body"/>
+  </joint>
+
+<link name="body">
+<inertial>
+<origin xyz="-0.0529 -0.01689 0.00113" />
+<mass value="1.2687" />
+<inertia ixx="0.00533164" ixy="0.00203182" ixz="0.000164179" iyy="0.00310818" iyz="-0.000254602" izz="0.00637878" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/body.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.0295 0 -0.00185" />
+<geometry>
+<box size="0.083 0.1095 0.0393" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="-0.0235 0 -0.03585" />
+<geometry>
+<box size="0.102 0.1022 0.0287" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="-0.0208 0 -0.06908" />
+<geometry>
+<box size="0.0966 0.0992 0.03775" />
+</geometry>
+</collision>
+</link>
+
+<link name="neck">
+<inertial>
+<origin xyz="-0.000712811 0.00142428 0.0124324" />
+<mass value="0.0243577" />
+<inertia ixx="1.13798e-05" ixy="-2.4729e-08" ixz="-1.92231e-07" iyy="5.14111e-06" iyz="-5.75303e-07" izz="8.19157e-06" />
+</inertial>
+<visual>
+<origin xyz="0 0 0.029" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/neck.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 0 0.01525" />
+<geometry>
+<box size="0.022 0.045 0.0325" />
+</geometry>
+</collision>
+</link>
+
+<link name="head">
+<inertial>
+<origin xyz="0.00766662 6.39198e-05 0.0185645" />
+<mass value="0.158042" />
+<inertia ixx="0.000115836" ixy="-7.64598e-08" ixz="1.21992e-05" iyy="0.000123968" iyz="7.84944e-07" izz="0.000117838" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/head.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 0 0.0105" />
+<geometry>
+<box size="0.0356 0.0355 0.045" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="0 0 0.0662" />
+<geometry>
+<box size="0.0428 0.098 0.049" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftShoulder">
+<inertial>
+<origin xyz="0.00139357 0.0118774 -0.00573595" />
+<mass value="0.025913" />
+<inertia ixx="5.4768e-06" ixy="-4.51743e-07" ixz="3.3407e-07" iyy="9.77582e-06" iyz="1.69118e-06" izz="1.05111e-05" />
+</inertial>
+<visual>
+<origin xyz="0 0.0254 -0.016" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_shoulder.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 0.01725 -0.0065" />
+<geometry>
+<box size="0.045 0.0327 0.0377" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftArmUpper">
+<inertial>
+<origin xyz="0.000734065 0.036239 0.000659787" />
+<mass value="0.168377" />
+<inertia ixx="0.000113408" ixy="-1.82514e-06" ixz="-8.81434e-07" iyy="3.80884e-05" iyz="2.08126e-06" izz="0.000122028" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="1.5708 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_arm_upper.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 0.01385 0" />
+<geometry>
+<box size="0.0355 0.0517 0.0356" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="0.0027 0.05875 0" />
+<geometry>
+<box size="0.0506 0.0356 0.0355" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftArmLower">
+<inertial>
+<origin xyz="-0.0134901 0.0458382 0.00666564" />
+<mass value="0.0592885" />
+<inertia ixx="8.68455e-05" ixy="6.48559e-06" ixz="4.36361e-07" iyy="2.11921e-05" iyz="-5.30203e-06" izz="8.68553e-05" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="1.5708 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_arm_lower.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.016 0.106 0.02478" />
+<geometry>
+<box size="0.035 0.166 0.012" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightShoulder">
+<inertial>
+<origin xyz="0.00139357 -0.0118774 -0.00573595" />
+<mass value="0.025913" />
+<inertia ixx="5.4768e-06" ixy="4.51743e-07" ixz="3.3407e-07" iyy="9.77582e-06" iyz="-1.69118e-06" izz="1.05111e-05" />
+</inertial>
+<visual>
+<origin xyz="0 -0.0254 -0.016" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_shoulder.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 -0.01725 -0.0065" />
+<geometry>
+<box size="0.045 0.0327 0.0377" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightArmUpper">
+<inertial>
+<origin xyz="0.000734065 -0.036239 0.000659787" />
+<mass value="0.168377" />
+<inertia ixx="0.000113408" ixy="1.82514e-06" ixz="-8.81434e-07" iyy="3.80884e-05" iyz="-2.08126e-06" izz="0.000122028" />
+</inertial>
+<visual>
+<origin xyz="0 -0 0" rpy="-1.5708 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_arm_upper.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 -0.01385 0" />
+<geometry>
+<box size="0.0355 0.0517 0.0356" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="0.0027 -0.05875 0" />
+<geometry>
+<box size="0.0506 0.0356 0.0355" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightArmLower">
+<inertial>
+<origin xyz="-0.0134901 -0.0458382 0.00666564" />
+<mass value="0.0592885" />
+<inertia ixx="8.68455e-05" ixy="-6.48559e-06" ixz="4.36361e-07" iyy="2.11921e-05" iyz="5.30203e-06" izz="8.68553e-05" />
+</inertial>
+<visual>
+<origin xyz="0 -0 0" rpy="-1.5708 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_arm_lower.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.016 -0.106 0.02478" />
+<geometry>
+<box size="0.035 0.166 0.012" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftPelvisY">
+<inertial>
+<origin xyz="0.00323013 0 -0.0120628" />
+<mass value="0.0270692" />
+<inertia ixx="6.18255e-06" ixy="0" ixz="-7.335e-07" iyy="1.50191e-05" iyz="0" izz="1.13288e-05" />
+</inertial>
+<visual>
+<origin xyz="0.00275 0 -0.0305" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_pelvis_y.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00275 0 -0.016" />
+<geometry>
+<box size="0.0505 0.027 0.034" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftPelvis">
+<inertial>
+<origin xyz="-0.0182424 7.99828e-05 -0.0138731" />
+<mass value="0.167108" />
+<inertia ixx="4.18777e-05" ixy="8.11439e-07" ixz="-7.16355e-06" iyy="0.000122597" iyz="7.11275e-07" izz="0.000110666" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_pelvis.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.02147 0 -0.0133" />
+<geometry>
+<box size="0.07855 0.0356 0.0506" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftThigh">
+<inertial>
+<origin xyz="0.000691906 -0.000322635 -0.0629655" />
+<mass value="0.119043" />
+<inertia ixx="0.000114935" ixy="-2.1223e-07" ixz="-1.9474e-06" iyy="9.79503e-05" iyz="1.21194e-06" izz="3.28483e-05" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_thigh.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 0 -0.02435" />
+<geometry>
+<box size="0.025 0.045 0.0537" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="7e-05 0 -0.0781" />
+<geometry>
+<box size="0.0356 0.0355 0.0538" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftTibia">
+<inertial>
+<origin xyz="0.00654763 -0.000592469 -0.0390455" />
+<mass value="0.0703098" />
+<inertia ixx="0.000113515" ixy="-2.39921e-07" ixz="-1.28585e-05" iyy="9.33696e-05" iyz="-9.35674e-07" izz="4.62955e-05" />
+</inertial>
+<visual>
+<origin xyz="0 0 -0.093" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_tibia.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00181 0 -0.04275" />
+<geometry>
+<box size="0.03938 0.045 0.1055" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftAnkle">
+<inertial>
+<origin xyz="-0.0185361 -0.000213732 0.0138731" />
+<mass value="0.167108" />
+<inertia ixx="4.18711e-05" ixy="-3.93222e-07" ixz="7.07701e-06" iyy="0.000120792" iyz="-7.97811e-07" izz="0.000108855" />
+</inertial>
+<visual>
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_ankle.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.02147 0 0.0133" />
+<geometry>
+<box size="0.07855 0.0356 0.0506" />
+</geometry>
+</collision>
+</link>
+
+<link name="leftFoot">
+<inertial>
+<origin xyz="0.00224712 0.00950588 -0.0259953" />
+<mass value="0.0794462" />
+<inertia ixx="3.58408e-05" ixy="2.18696e-07" ixz="9.76205e-07" iyy="6.83256e-05" iyz="2.53305e-06" izz="8.78905e-05" />
+</inertial>
+<visual>
+<origin xyz="0.00275 0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/left_foot.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00275 0 -0.0145" />
+<geometry>
+<box size="0.0505 0.027 0.034" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="0.00275 0.013 -0.0445" />
+<geometry>
+<box size="0.13 0.07 0.026" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightPelvisY">
+<inertial>
+<origin xyz="0.00323013 0 -0.0120628" />
+<mass value="0.0270692" />
+<inertia ixx="6.18255e-06" ixy="0" ixz="-7.335e-07" iyy="1.50191e-05" iyz="0" izz="1.13288e-05" />
+</inertial>
+<visual>
+<origin xyz="0.00275 -0 -0.0305" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_pelvis_y.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00275 -0 -0.016" />
+<geometry>
+<box size="0.0505 0.027 0.034" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightPelvis">
+<inertial>
+<origin xyz="-0.0182424 -7.99828e-05 -0.0138731" />
+<mass value="0.167108" />
+<inertia ixx="4.18777e-05" ixy="-8.11439e-07" ixz="-7.16355e-06" iyy="0.000122597" iyz="-7.11275e-07" izz="0.000110666" />
+</inertial>
+<visual>
+<origin xyz="0 -0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_pelvis.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.02147 -0 -0.0133" />
+<geometry>
+<box size="0.07855 0.0356 0.0506" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightThigh">
+<inertial>
+<origin xyz="0.000691906 0.000322635 -0.0629655" />
+<mass value="0.119043" />
+<inertia ixx="0.000114935" ixy="2.1223e-07" ixz="-1.9474e-06" iyy="9.79503e-05" iyz="-1.21194e-06" izz="3.28483e-05" />
+</inertial>
+<visual>
+<origin xyz="0 -0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_thigh.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0 -0 -0.02435" />
+<geometry>
+<box size="0.025 0.045 0.0537" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="7e-05 -0 -0.0781" />
+<geometry>
+<box size="0.0356 0.0355 0.0538" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightTibia">
+<inertial>
+<origin xyz="0.00654763 0.000592469 -0.0390455" />
+<mass value="0.0703098" />
+<inertia ixx="0.000113515" ixy="2.39921e-07" ixz="-1.28585e-05" iyy="9.33696e-05" iyz="9.35674e-07" izz="4.62955e-05" />
+</inertial>
+<visual>
+<origin xyz="0 -0 -0.093" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_tibia.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00181 -0 -0.04275" />
+<geometry>
+<box size="0.03938 0.045 0.1055" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightAnkle">
+<inertial>
+<origin xyz="-0.0185361 0.000213732 0.0138731" />
+<mass value="0.167108" />
+<inertia ixx="4.18711e-05" ixy="3.93222e-07" ixz="7.07701e-06" iyy="0.000120792" iyz="7.97811e-07" izz="0.000108855" />
+</inertial>
+<visual>
+<origin xyz="0 -0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_ankle.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="-0.02147 -0 0.0133" />
+<geometry>
+<box size="0.07855 0.0356 0.0506" />
+</geometry>
+</collision>
+</link>
+
+<link name="rightFoot">
+<inertial>
+<origin xyz="0.00224712 -0.00950588 -0.0259953" />
+<mass value="0.0794462" />
+<inertia ixx="3.58408e-05" ixy="-2.18696e-07" ixz="9.76205e-07" iyy="6.83256e-05" iyz="-2.53305e-06" izz="8.78905e-05" />
+</inertial>
+<visual>
+<origin xyz="0.00275 -0 0" rpy="0 0 0" />
+<geometry>
+<mesh filename="./meshes/chape/right_foot.dae" scale="1 1 1" />
+</geometry>
+</visual>
+<collision>
+<origin xyz="0.00275 -0 -0.0145" />
+<geometry>
+<box size="0.0505 0.027 0.034" />
+</geometry>
+</collision>
+<collision>
+<origin xyz="0.00275 -0.013 -0.0445" />
+<geometry>
+<box size="0.13 0.07 0.026" />
+</geometry>
+</collision>
+</link>
+
+<joint name="neckYaw" type="revolute">
+<parent link="body" />
+<child link="neck" />
+<origin xyz="0 0 0.0217" />
+<axis xyz="0 0 1" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="neckPitch" type="revolute">
+<parent link="neck" />
+<child link="head" />
+<origin xyz="0 0 0.029" rpy="0.0 0.0 0.0" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftShoulderPitch" type="revolute">
+<parent link="body" />
+<child link="leftShoulder" />
+<origin xyz="0 0.0566 0" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftShoulderYaw" type="revolute">
+<parent link="leftShoulder" />
+<child link="leftArmUpper" />
+<origin xyz="0 0.0254 -0.016" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftElbowYaw" type="revolute">
+<parent link="leftArmUpper" />
+<child link="leftArmLower" />
+<origin xyz="0.016 0.06 0" />
+<axis xyz="0 0 1" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightShoulderPitch" type="revolute">
+<parent link="body" />
+<child link="rightShoulder" />
+<origin xyz="0 -0.0566 0" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightShoulderYaw" type="revolute">
+<parent link="rightShoulder" />
+<child link="rightArmUpper" />
+<origin xyz="0 -0.0254 -0.016" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightElbowYaw" type="revolute">
+<parent link="rightArmUpper" />
+<child link="rightArmLower" />
+<origin xyz="0.016 -0.06 0" />
+<axis xyz="0 0 1" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftHipYaw" type="revolute">
+<parent link="body" />
+<child link="leftPelvisY" />
+<origin xyz="-0.0037 0.0375 -0.12335" />
+<axis xyz="0 0 1" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftHipRoll" type="revolute">
+<parent link="leftPelvisY" />
+<child link="leftPelvis" />
+<origin xyz="0 0 -0.0305" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftHipPitch" type="revolute">
+<parent link="leftPelvis" />
+<child link="leftThigh" />
+<origin xyz="0 0 0" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftKneePitch" type="revolute">
+<parent link="leftThigh" />
+<child link="leftTibia" />
+<origin xyz="0 0 -0.093" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftAnklePitch" type="revolute">
+<parent link="leftTibia" />
+<child link="leftAnkle" />
+<origin xyz="0 0 -0.093" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="leftAnkleRoll" type="revolute">
+<parent link="leftAnkle" />
+<child link="leftFoot" />
+<origin xyz="0 0 0" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightHipYaw" type="revolute">
+<parent link="body" />
+<child link="rightPelvisY" />
+<origin xyz="-0.0037 -0.0375 -0.12335" />
+<axis xyz="0 0 1" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightHipRoll" type="revolute">
+<parent link="rightPelvisY" />
+<child link="rightPelvis" />
+<origin xyz="0 -0 -0.0305" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightHipPitch" type="revolute">
+<parent link="rightPelvis" />
+<child link="rightThigh" />
+<origin xyz="0 -0 0" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightKneePitch" type="revolute">
+<parent link="rightThigh" />
+<child link="rightTibia" />
+<origin xyz="0 -0 -0.093" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightAnklePitch" type="revolute">
+<parent link="rightTibia" />
+<child link="rightAnkle" />
+<origin xyz="0 -0 -0.093" />
+<axis xyz="0 1 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<joint name="rightAnkleRoll" type="revolute">
+<parent link="rightAnkle" />
+<child link="rightFoot" />
+<origin xyz="0 -0 0" />
+<axis xyz="1 0 0" />
+<limit effort="2.5" velocity="6" lower="-3.14159" upper="3.14159" />
+<dynamics damping="0.432154" friction="0.0" />
+</joint>
+
+<gazebo>
+<plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+<robotNamespace>/darwin</robotNamespace>
+</plugin>
+</gazebo>
+
+<transmission name="neckYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="neckYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="neckYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="neckPitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="neckPitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="neckPitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftShoulderPitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftShoulderPitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftShoulderPitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftShoulderYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftShoulderYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftShoulderYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftElbowYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftElbowYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftElbowYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightShoulderPitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightShoulderPitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightShoulderPitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightShoulderYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightShoulderYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightShoulderYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightElbowYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightElbowYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightElbowYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftHipYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftHipYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftHipYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftHipRollTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftHipRoll">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftHipRollActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftHipPitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftHipPitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftHipPitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftKneePitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftKneePitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftKneePitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftAnklePitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftAnklePitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftAnklePitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="leftAnkleRollTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="leftAnkleRoll">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="leftAnkleRollActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightHipYawTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightHipYaw">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightHipYawActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightHipRollTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightHipRoll">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightHipRollActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightHipPitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightHipPitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightHipPitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightKneePitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightKneePitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightKneePitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightAnklePitchTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightAnklePitch">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightAnklePitchActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+<transmission name="rightAnkleRollTransmission">
+<type>transmission_interface/SimpleTransmission</type>
+<joint name="rightAnkleRoll">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+</joint>
+<actuator name="rightAnkleRollActuator">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+<mechanicalReduction>1</mechanicalReduction>
+</actuator>
+</transmission>
+
+</robot>
