@@ -42,7 +42,11 @@ class BaseEnv:
         self.num_actions = self.agents.num_actions
         self.num_priveleged_obs = self.agents.num_privileged_observations
 
-        self.graphics_device_id = self.sim_device_id
+        if not self.headless:
+            self.graphics_device_id = self.sim_device_id
+        else:
+            self.graphics_device_id = -1
+
         if not profile:
             torch._C._jit_set_profiling_mode(False)
             torch._C._jit_set_profiling_executor(False)
