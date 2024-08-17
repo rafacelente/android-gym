@@ -1,11 +1,12 @@
 env_name: chape_env
-episode_length_seconds: 20
+episode_length_seconds: 200
+num_envs: 1
 agents:
   name: chape
   num_observations: 72
   num_actions: 20
   init_state:
-    pos: [0.0, 0.0, 0.51]
+    pos: [0.0, 0.0, 0.42]
     rot: [0.0, 0.0, 0.0, 1.0]
     linear_velocity: [0.0, 0.0, 0.0]
     angular_velocity: [0.0, 0.0, 0.0]
@@ -48,7 +49,8 @@ agents:
       orientation: 0.01
       tracking_lin_vel: 6.0
       tracking_ang_vel: 0.5
-
+    custom_terminations:
+      - "base_under_threshold"
     terminate_after_contacts_on:
       - "base_link"
       - "neck"
@@ -62,7 +64,7 @@ agents:
     safety_scales:
       pos_scale: 1
       vel_scale: 1
-      torque_scale: 1
+      torque_scale: 2
   asset:
     file: /home/rafael/Documents/Personal/android-gym/android_gym/envs/chape/assets/darwin.urdf
     foot_name: "Foot"

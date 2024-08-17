@@ -391,3 +391,11 @@ class Chape(LeggedRobot):
             self.actions + self.last_last_actions - 2 * self.last_actions), dim=1)
         term_3 = 0.05 * torch.sum(torch.abs(self.actions), dim=1)
         return term_1 + term_2 + term_3
+    
+    # ================================== Custom Terminations ===================================
+
+    def _terminate_base_under_threshold(self):
+        """
+        Terminates the episode if the robot's base height falls below a specified threshold.
+        """
+        return self.root_states[:, 2] < 0.1

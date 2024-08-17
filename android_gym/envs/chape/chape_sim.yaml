@@ -1,1 +1,4 @@
 dt: 0.001
+physx:
+    num_threads: 4
+    contact_collection: 2

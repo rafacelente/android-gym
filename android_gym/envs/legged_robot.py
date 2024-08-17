@@ -92,6 +92,7 @@ class LeggedRobot(BaseEnv):
             self.set_camera(self.cfg.viewer.pos, self.cfg.viewer.lookat) # REVIEW: DONE
         self._init_buffers()
         self._prepare_reward_function()
+        self._prepare_custom_terminations()
         self.init_done = True
 
     def step(self, actions):
@@ -122,13 +123,6 @@ class LeggedRobot(BaseEnv):
             return self.obs_buf, self.privileged_obs_buf, self.rew_buf, self.reset_buf, self.extras
         return self.obs_buf, self.rew_buf, self.reset_buf, self.extras
 
-    def reset(self):
-        """ Reset all robots"""
-        self.reset_idx(torch.arange(self.num_envs, device=self.device))
-        obs, privileged_obs, _, _, _ = self.step(torch.zeros(
-            self.num_envs, self.num_actions, device=self.device, requires_grad=False))
-        return obs, privileged_obs
-    
     def post_physics_step(self):
         """ check terminations, compute observations and rewards
             calls self._post_physics_step_callback() for common computations 
@@ -170,6 +164,7 @@ class LeggedRobot(BaseEnv):
         """ Check if environments need to be reset
         """
         self.reset_buf = torch.any(torch.norm(self.contact_forces[:, self.termination_contact_indices, :], dim=-1) > 1., dim=1)
+        self.compute_custom_terminations()
         self.time_out_buf = (self.episode_length_buf > self.max_episode_length).to(self.device) # no terminal reward for time-outs
         self.reset_buf |= self.time_out_buf
 
@@ -224,6 +219,15 @@ class LeggedRobot(BaseEnv):
         self.base_euler_xyz = get_euler_xyz_tensor(self.base_quat)
         self.projected_gravity[env_ids] = quat_rotate_inverse(self.base_quat[env_ids], self.gravity_vec[env_ids])
     
+    def compute_custom_terminations(self):
+        """ Compute custom terminations
+            Add custom termination terms to the reset buffer
+        """
+        for i in range(len(self.termination_functions)):
+            terminate: bool = self.termination_functions[i]()
+            self.reset_buf |= terminate
+            
+
     def compute_reward(self):
         """ Compute rewards
             Calls each reward function which had a non-zero scale (processed in self._prepare_reward_function())
@@ -562,6 +566,15 @@ class LeggedRobot(BaseEnv):
         self.episode_sums = {name: torch.zeros(self.num_envs, dtype=torch.float, device=self.device, requires_grad=False)
                              for name in self.reward_scales.keys()}
 
+    def _prepare_custom_terminations(self):
+        """ Prepares a list of termination functions, which will be called to compute the total termination.
+            Looks for self._termination_<TERMINATION_NAME>
+        """
+        self.termination_functions = []
+        for name in self.custom_termination_functions:
+            name = '_terminate_' + name
+            self.termination_functions.append(getattr(self, name))
+
     def _create_ground_plane(self):
         """ Adds a ground plane to the simulation, sets friction and restitution based on the cfg.
         """
@@ -733,6 +746,7 @@ class LeggedRobot(BaseEnv):
         self.dt = self.cfg.agents.controls.decimation * self.sim_params.dt
         self.obs_scales = self.cfg.agents.normalization.observation_scales
         self.reward_scales = self.cfg.agents.rewards.reward_map
+        self.custom_termination_functions = self.cfg.agents.rewards.custom_terminations
         self.command_ranges = self.cfg.agents.commands.command_ranges
         self.max_episode_length_s = self.cfg.episode_length_seconds
         self.max_episode_length = np.ceil(self.max_episode_length_s / self.dt)

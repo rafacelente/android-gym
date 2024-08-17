@@ -76,7 +76,7 @@ class Noise(BaseModel):
 
 class Normalization(BaseModel):
     observation_clip: float = 100.0
-    action_clip: float = 1.0
+    action_clip: float = 3.14
     observation_scales: Dict[str, float]
     command_scales: Optional[Dict[str, float]] = None
     
@@ -85,6 +85,7 @@ class Rewards(BaseModel):
     reward_map: Dict[str, float]
     penalize_contacts_on: List[str] = []
     terminate_after_contacts_on: List[str] = []
+    custom_terminations: List[str] = []
 
     @field_validator('reward_map')
     @classmethod

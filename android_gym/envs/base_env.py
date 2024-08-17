@@ -148,16 +148,16 @@ class BaseEnv:
 
     def reset(self):
         self.reset_idx(torch.arange(self.num_envs, device=self.device))
-        obs, privileged_obs, _, _, _ = self.step(
+        obs, _, _, _ = self.step(
             torch.zeros(
                 (
                     self.num_envs,
                     self.num_actions,
                 ), 
                 device=self.device,
-            ).squeeze()
+            )
         )
-        return obs, privileged_obs
+        return obs
     
     def render(self, sync_frame_time=True):
         if self.viewer:
