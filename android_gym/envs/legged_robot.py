@@ -113,6 +113,9 @@ class LeggedRobot(BaseEnv):
             if self.device == 'cpu':
                 self.gym.fetch_results(self.sim, True)
             self.gym.refresh_dof_state_tensor(self.sim)
+        print(f"commands: {self.commands}")
+        print(f"base lin vel: {self.base_lin_vel}")
+        print(f"base ang vel: {self.base_ang_vel}")
         self.post_physics_step()
 
         # return clipped obs, clipped states (None), rewards, dones and infos
@@ -339,10 +342,9 @@ class LeggedRobot(BaseEnv):
         """
         self.commands[env_ids, 0] = torch_rand_float(self.command_ranges["linear_x"][0], self.command_ranges["linear_x"][1], (len(env_ids), 1), device=self.device).squeeze(1)
         self.commands[env_ids, 1] = torch_rand_float(self.command_ranges["linear_y"][0], self.command_ranges["linear_y"][1], (len(env_ids), 1), device=self.device).squeeze(1)
+        self.commands[env_ids, 2] = torch_rand_float(self.command_ranges["yaw"][0], self.command_ranges["yaw"][1], (len(env_ids), 1), device=self.device).squeeze(1)
         if "heading" in self.cfg.agents.commands.command_ranges.keys():
             self.commands[env_ids, 3] = torch_rand_float(self.command_ranges["heading"][0], self.command_ranges["heading"][1], (len(env_ids), 1), device=self.device).squeeze(1)
-        else:
-            self.commands[env_ids, 2] = torch_rand_float(self.command_ranges["yaw"][0], self.command_ranges["yaw"][1], (len(env_ids), 1), device=self.device).squeeze(1)
 
         # set small commands to zero
         self.commands[env_ids, :2] *= (torch.norm(self.commands[env_ids, :2], dim=1) > 0.2).unsqueeze(1)
