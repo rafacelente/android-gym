@@ -33,22 +33,26 @@ agents:
       rightAnklePitch: 0.0
       rightAnkleRoll: 0.0
   commands:
-    num_commands: 3
+    num_commands: 4
     command_ranges:
-      linear_x: [1.0, 2.0]
+      linear_x: [0.7, 1.5]
       linear_y: [0.0, 0.0]
       yaw: [0.0, 0.0]
+      heading: [0.0, 0.0]
   normalization:
     observation_scales:
       test: 1.0
   rewards:
     reward_map:
-      #feet_air_time: 0.01
-      joint_pos: 0.01
-      foot_slip: 0.01
-      orientation: 0.01
+      feet_air_time: 0.02
+      #oint_pos: 0.05
+      foot_slip: 0.1
+      orientation: 0.2
       tracking_lin_vel: 6.0
-      tracking_ang_vel: 0.5
+      tracking_ang_vel: 2.0
+      action_smoothness: 0.01
+      tracking_heading: 1.0
+      low_speed: 0.2
     custom_terminations:
       - "base_under_threshold"
     terminate_after_contacts_on:
@@ -64,7 +68,7 @@ agents:
     safety_scales:
       pos_scale: 1
       vel_scale: 1
-      torque_scale: 2
+      torque_scale: 1
   asset:
     file: /home/rafael/Documents/Personal/android-gym/android_gym/envs/chape/assets/darwin.urdf
     foot_name: "Foot"

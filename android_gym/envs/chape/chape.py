@@ -208,7 +208,7 @@ class Chape(LeggedRobot):
         Calculates the reward for keeping contact forces within a specified range. Penalizes
         high contact forces on the feet.
         """
-        return torch.sum((torch.norm(self.contact_forces[:, self.feet_indices, :], dim=-1) - self.cfg.rewards.max_contact_force).clip(0, 400), dim=1)
+        return torch.sum((torch.norm(self.contact_forces[:, self.feet_indices, :], dim=-1) - self.cfg.agents.rewards.max_contact_force).clip(0, 400), dim=1)
 
     def _reward_default_joint_pos(self):
         """
@@ -274,6 +274,16 @@ class Chape(LeggedRobot):
         linear_error = 0.2 * (lin_vel_error + ang_vel_error)
 
         return (lin_vel_error_exp + ang_vel_error_exp) / 2. - linear_error
+
+    def _reward_tracking_heading(self):
+        """
+        Calculates a reward for tracking the robot's heading direction. Penalizes deviation from the 
+        commanded heading direction, encouraging the robot to maintain a consistent orientation.
+        """
+        forward = quat_apply(self.base_quat, self.forward_vec)
+        heading = torch.atan2(forward[:, 1], forward[:, 0])
+        heading_error = torch.abs(heading - self.commands[:, 3])
+        return torch.exp(-heading_error / 0.25)
 
     def _reward_tracking_lin_vel(self):
         """

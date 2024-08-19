@@ -113,9 +113,6 @@ class LeggedRobot(BaseEnv):
             if self.device == 'cpu':
                 self.gym.fetch_results(self.sim, True)
             self.gym.refresh_dof_state_tensor(self.sim)
-        print(f"commands: {self.commands}")
-        print(f"base lin vel: {self.base_lin_vel}")
-        print(f"base ang vel: {self.base_ang_vel}")
         self.post_physics_step()
 
         # return clipped obs, clipped states (None), rewards, dones and infos
