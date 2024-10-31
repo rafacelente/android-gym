@@ -271,7 +271,7 @@ class LeggedRobot(BaseEnv):
         if self.cfg.agents.domain_randomization.randomize_friction:
             if env_id==0:
                 # prepare friction randomization
-                friction_range = self.cfg.domain_randomization.friction_range
+                friction_range = self.cfg.agents.domain_randomization.friction_range
                 num_buckets = 256
                 bucket_ids = torch.randint(0, num_buckets, (self.num_envs, 1))
                 friction_buckets = torch_rand_float(friction_range[0], friction_range[1], (num_buckets,1), device='cpu')
