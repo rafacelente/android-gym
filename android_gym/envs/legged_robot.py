@@ -307,8 +307,8 @@ class LeggedRobot(BaseEnv):
 
     def _process_rigid_body_props(self, props, env_id):
         # randomize base mass
-        if self.cfg.domain_randomization.randomize_base_mass:
-            rng = self.cfg.domain_randomization.added_mass_range
+        if self.cfg.agents.domain_randomization.randomize_base_mass:
+            rng = self.cfg.agents.domain_randomization.added_mass_range
             props[0].mass += np.random.uniform(rng[0], rng[1])
 
         return props
@@ -328,8 +328,15 @@ class LeggedRobot(BaseEnv):
         if self.cfg.terrain.measure_heights:
             self.measured_heights = self._get_heights()
 
-        # if self.cfg.domain_rand.push_robots and  (self.common_step_counter % self.cfg.domain_rand.push_interval == 0):
-        #     self._push_robots()
+        if self.cfg.agents.domain_randomization.push_robots and  (self.common_step_counter % self.cfg.agents.domain_randomization.push_interval == 0):
+            self._push_robots()
+
+    def _push_robots(self):
+        """ Random pushes the robots. Emulates an impulse by setting a randomized base velocity. 
+        """
+        max_vel = self.cfg.domain_rand.max_push_vel_xy
+        self.root_states[:, 7:9] = torch_rand_float(-max_vel, max_vel, (self.num_envs, 2), device=self.device) # lin vel x/y
+        self.gym.set_actor_root_state_tensor(self.sim, gymtorch.unwrap_tensor(self.root_states))
 
     def _resample_commands(self, env_ids):
         """ Randommly select commands of some environments
@@ -749,7 +756,7 @@ class LeggedRobot(BaseEnv):
         self.command_ranges = self.cfg.agents.commands.command_ranges
         self.max_episode_length_s = self.cfg.episode_length_seconds
         self.max_episode_length = np.ceil(self.max_episode_length_s / self.dt)
-        self.cfg.agents.domain_randomization.push_interval = np.ceil(self.cfg.domain_randomization.push_interval / self.dt)
+        self.cfg.agents.domain_randomization.push_interval = np.ceil(self.cfg.agents.domain_randomization.push_interval / self.dt)
 
     def _draw_debug_vis(self):
         """ Draws visualizations for dubugging (slows down simulation a lot).
