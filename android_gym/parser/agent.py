@@ -153,6 +153,14 @@ class Asset(BaseModel):
                 raise ValueError(f'Invalid drive mode {v}. Must be one of {list(drive_map.values())}')
             return v
 
+class DomainRandomization(BaseModel):
+    push_robots: bool = False
+    push_interval: float = 1.0  # seconds
+    randomize_friction: bool = False
+    friction_range: List[float] = [0.5, 1.5]
+    randomize_base_mass: bool = False
+    added_mass_range: List[float] = [0.5, 1.5]
+
 class Agent(BaseModel):
     name: str
     num_observations: int
@@ -161,12 +169,12 @@ class Agent(BaseModel):
     init_state: InitState
     disable_gravity: bool = False
     commands: Commands
+    domain_randomization: DomainRandomization = DomainRandomization()
     noise: Noise = Noise()
     normalization: Normalization
     rewards: Rewards
     controls: Controls
     asset: Asset
-    # TODO(MAJOR): DOMAIN RANDOMIZATION - SEE legged_robots.py _process_rigid_shape_props and _process_rigid_body_props
     
     # TODO: there may be cases where the number of actions
     # is not equal to the number of joints (inactive joints),

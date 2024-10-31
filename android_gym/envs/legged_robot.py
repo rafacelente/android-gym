@@ -268,17 +268,17 @@ class LeggedRobot(BaseEnv):
         Returns:
             [List[gymapi.RigidShapeProperties]]: Modified rigid shape properties
         """
-        # if self.cfg.agents.domain_rand.randomize_friction:
-        #     if env_id==0:
-        #         # prepare friction randomization
-        #         friction_range = self.cfg.domain_rand.friction_range
-        #         num_buckets = 256
-        #         bucket_ids = torch.randint(0, num_buckets, (self.num_envs, 1))
-        #         friction_buckets = torch_rand_float(friction_range[0], friction_range[1], (num_buckets,1), device='cpu')
-        #         self.friction_coeffs = friction_buckets[bucket_ids]
+        if self.cfg.agents.domain_randomization.randomize_friction:
+            if env_id==0:
+                # prepare friction randomization
+                friction_range = self.cfg.domain_randomization.friction_range
+                num_buckets = 256
+                bucket_ids = torch.randint(0, num_buckets, (self.num_envs, 1))
+                friction_buckets = torch_rand_float(friction_range[0], friction_range[1], (num_buckets,1), device='cpu')
+                self.friction_coeffs = friction_buckets[bucket_ids]
 
-        #     for s in range(len(props)):
-        #         props[s].friction = self.friction_coeffs[env_id]
+            for s in range(len(props)):
+                props[s].friction = self.friction_coeffs[env_id]
         return props
     
 
@@ -307,9 +307,9 @@ class LeggedRobot(BaseEnv):
 
     def _process_rigid_body_props(self, props, env_id):
         # randomize base mass
-        # if self.cfg.domain_rand.randomize_base_mass:
-        #     rng = self.cfg.domain_rand.added_mass_range
-        #     props[0].mass += np.random.uniform(rng[0], rng[1])
+        if self.cfg.domain_randomization.randomize_base_mass:
+            rng = self.cfg.domain_randomization.added_mass_range
+            props[0].mass += np.random.uniform(rng[0], rng[1])
 
         return props
     
@@ -526,8 +526,8 @@ class LeggedRobot(BaseEnv):
                 self.p_gains[:, i] = self.cfg.agents.controls.stiffness
                 self.d_gains[:, i] = self.cfg.agents.controls.damping
         # TODO: privieleged observations
-        # self.rand_push_force = torch.zeros((self.num_envs, 3), dtype=torch.float32, device=self.device)
-        # self.rand_push_torque = torch.zeros((self.num_envs, 3), dtype=torch.float32, device=self.device)
+        self.rand_push_force = torch.zeros((self.num_envs, 3), dtype=torch.float32, device=self.device)
+        self.rand_push_torque = torch.zeros((self.num_envs, 3), dtype=torch.float32, device=self.device)
         # self.default_dof_pos = self.default_dof_pos.unsqueeze(0)
 
         # self.default_joint_pd_target = self.default_dof_pos.clone()
@@ -749,8 +749,7 @@ class LeggedRobot(BaseEnv):
         self.command_ranges = self.cfg.agents.commands.command_ranges
         self.max_episode_length_s = self.cfg.episode_length_seconds
         self.max_episode_length = np.ceil(self.max_episode_length_s / self.dt)
-        # TODO: Domain randomization
-        #self.cfg.domain_rand.push_interval = np.ceil(self.cfg.domain_rand.push_interval_s / self.dt)
+        self.cfg.agents.domain_randomization.push_interval = np.ceil(self.cfg.domain_randomization.push_interval / self.dt)
 
     def _draw_debug_vis(self):
         """ Draws visualizations for dubugging (slows down simulation a lot).

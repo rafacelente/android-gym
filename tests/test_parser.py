@@ -23,4 +23,9 @@ def test_env_parser():
     assert env.viewer.ref_env == 0
     assert env.agents.name == "test_agent"
 
+def test_config_agent_properties():
+    from android_gym.parser import EnvConfig
+    env = EnvConfig(**MOCK_ENV_DATA)
+    assert env.agents.controls.stiffness == 0.1
+
     
