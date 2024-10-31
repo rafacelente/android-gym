@@ -156,6 +156,7 @@ class Asset(BaseModel):
 class DomainRandomization(BaseModel):
     push_robots: bool = False
     push_interval: float = 1.0  # seconds
+    max_push_vel_xy: float = 0.4
     randomize_friction: bool = False
     friction_range: List[float] = [0.5, 1.5]
     randomize_base_mass: bool = False
