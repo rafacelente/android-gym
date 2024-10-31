@@ -60,8 +60,8 @@ class LeggedRobotCfgPPO(BaseConfig):
         desired_kl = 0.01
         max_grad_norm = 1.
 
-    #logger = "wandb"
-    #wandb_project = 'android-gym'
+    logger = "wandb"
+    wandb_project = 'android-gym'
 
     # class runner:
     num_steps_per_env = 24 # per iteration
