@@ -6,11 +6,11 @@ authors = ["Rafael Celente"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8,<3.10"
 pydantic = "^2.8.2"
 typing-extensions = "^4.12.2"
 numpy = "1.23.5"
-rsl-rl = {git = "git@github.com:leggedrobotics/rsl_rl.git"}
+# rsl-rl = {git = "git@github.com:leggedrobotics/rsl_rl.git"}
 
 
 [tool.poetry.group.dev.dependencies]
